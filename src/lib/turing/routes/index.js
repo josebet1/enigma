@@ -4,6 +4,7 @@ import TuringAnalyze from '../index';
 
 function handleAnalyzeRequest(req, res) {
 	const articleURL = req.body.site;
+	const articleHeadline = req.body.headline;
 
 	let hostname = url.parse(articleURL).hostname;
 
@@ -11,10 +12,14 @@ function handleAnalyzeRequest(req, res) {
 		hostname = hostname.slice(4);
 	}
 
-	const newTuringAnalyze = new TuringAnalyze(hostname);
+	const newTuringAnalyze = new TuringAnalyze(hostname, articleHeadline);
 
-	newTuringAnalyze.calcOppositeSites(() => {
-
+	newTuringAnalyze.googleEntitySearch((resp) => {
+		newTuringAnalyze.calcOppositeSites((opposites) => {
+			TuringAnalyze.bingSearch(resp, opposites[0], (url) => {
+				res.status(200).send({ url });
+			});
+		});
 	});
 }
 

@@ -7,12 +7,12 @@ const BING_API_KEY = process.env.BING_KEY;
 const GCLOUD_API_KEY = process.env.GCLOUD_KEY;
 
 class TuringAnalyze {
-	constructor(hostname) {
+	constructor(hostname, headline) {
 		this.hostname = hostname;
+		this.headline = headline;
 	}
 
 	calcOppositeSites(callback) {
-
 		if (this.hostname in validSites) {
 			const site = validSites[this.hostname];
 			const siteCopy = JSON.parse(JSON.stringify(site));
@@ -33,23 +33,43 @@ class TuringAnalyze {
 		}
 	}
 
-	static googleEntitySearch(headline, callback) {
+	getOppositeArticle(callback) {
+		this.calcOppositeSites((res) => {
+			if (res) {
+				googleEntitySearch(() => {
+					// now find matching article in bing
+					// return the final atricle url
+				});
+			} else {
+				callback(false);
+			}
+		});
+	}
+
+	googleEntitySearch(callback) {
 		const requestOptions = {
 			url: 'https://language.googleapis.com/v1/documents:analyzeEntities',
+			method: 'POST',
 			headers: {
 				'Authorization': `Bearer ${GCLOUD_API_KEY}`, 
 			},
+			json: true,
 			body: {
 				document: {
 					type: 'PLAIN_TEXT',
-					content: headline,
+					content: this.headline,
 				},
-				encoding: 'UTF8',
 			},
-		}
+		};
 
 		request(requestOptions, (error, response, body) => {
-			console.log(body);
+			if (!error && response.statusCode === 200) {
+				const termsArr = [];
+				body.entities.forEach((elem) => {
+					termsArr.push(elem.name);
+				});
+				callback(termsArr);
+			}
 		});
 
 	}
@@ -59,11 +79,13 @@ class TuringAnalyze {
 		const searchQuery = `q=${searchTerms}+site:${site}&mkt=en-us`;
 
 		const requestOptions = {
-			url: `https://api.cognitive.microsoft.com/bing/v5.0/news/search?q=${searchQuery}`,
+			url: `https://api.cognitive.microsoft.com/bing/v5.0/news/search?${searchQuery}`,
 			headers: {
 				'Ocp-Apim-Subscription-Key': BING_API_KEY
 			}
 		};
+
+		console.log(`https://api.cognitive.microsoft.com/bing/v5.0/news/search?${searchQuery}`);
 
 		request(requestOptions, (error, response, body) => {
 			const parsedBody = JSON.parse(body);
