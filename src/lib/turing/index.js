@@ -63,7 +63,8 @@ class TuringAnalyze {
 		};
 
 		request(requestOptions, (error, response, body) => {
-			if (!error && response.statusCode === 200) {
+			if (!error) {
+				console.log(body);
 				const termsArr = [];
 				console.log(body.entities); // remove entities until we get something unless its 0 // then switch sites
 				body.entities.forEach((elem) => {
