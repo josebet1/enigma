@@ -70,6 +70,8 @@ class TuringAnalyze {
 					termsArr.push(elem.name);
 				});
 				callback(termsArr);
+			} else {
+				console.log(error);
 			}
 		});
 
