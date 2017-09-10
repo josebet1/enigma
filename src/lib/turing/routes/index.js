@@ -18,7 +18,7 @@ function handleAnalyzeRequest(req, res) {
 	newTuringAnalyze.googleEntitySearch((resp) => {
 		newTuringAnalyze.calcOppositeSites((opposites) => {
 			TuringAnalyze.bingSearch(resp, opposites[0], (url) => {
-				if (true) {
+				if (url) {
 					const newURL = url.replace('http', 'https');
 					res.cookie('urls', { hostname, articleURL, articleHeadline, newURL });
 					res.redirect('/view');
