@@ -28,4 +28,4 @@ function handleViewRequest(req, res) {
 	console.log(req.cookies);
 }
 
-export { handleAnalyzeRequest };
+export { handleAnalyzeRequest, handleViewRequest };
