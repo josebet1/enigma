@@ -49,7 +49,7 @@ class TuringAnalyze {
 
 	googleEntitySearch(callback) {
 		const requestOptions = {
-			url: 'https://language.googleapis.com/v1/documents:analyzeEntities?key=${GCLOUD_API_KEY}',
+			url: `https://language.googleapis.com/v1/documents:analyzeEntities?key=${GCLOUD_API_KEY}`,
 			method: 'POST',
 			json: true,
 			body: {
