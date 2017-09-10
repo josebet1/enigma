@@ -19,7 +19,7 @@ function handleAnalyzeRequest(req, res) {
 		newTuringAnalyze.calcOppositeSites((opposites) => {
 			TuringAnalyze.bingSearch(resp, opposites[0], (url) => {
 				if (url) {
-					res.cookie('urls', { hostname, articleURL, articleHeadline, newURL });
+					res.cookie('urls', { hostname, articleURL, articleHeadline, newURL: url });
 					res.redirect('/view');
 				} else {
 					console.log(url);
