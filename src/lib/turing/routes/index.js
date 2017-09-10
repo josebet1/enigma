@@ -26,7 +26,8 @@ function handleAnalyzeRequest(req, res) {
 
 function handleViewRequest(req, res) { 
 	console.log(req.cookies);
-	res.send(`<div style="width: 50% !important; height:100%;"> <iframe id="left" style="width: 100%; height: 100%;" src="${req.cookies.urls.articleURL}"></iframe></div> <div style="width: 50% !important;"><iframe id="right" style="width: 100%; height: 100%;" src="${req.cookies.urls.newURL}"></iframe></div>`);
+	res.set('Content-Type', 'text/html');
+	res.send(`<html><head></head><body><div style="width: 49.5% !important; height:100%;"> <iframe id="left" style="width: 100%; height: 100%;" src="${req.cookies.urls.articleURL}"></iframe></div> <div style="width: 49.5% !important;"><iframe id="right" style="width: 100%; height: 100%;" src="${req.cookies.urls.newURL}"></iframe></div></body></html>`);
 }
 
 export { handleAnalyzeRequest, handleViewRequest };
