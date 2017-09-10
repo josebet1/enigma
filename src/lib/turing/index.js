@@ -91,6 +91,7 @@ class TuringAnalyze {
 
 		request(requestOptions, (error, response, body) => {
 			console.log(error);
+			console.log(body);
 			const parsedBody = JSON.parse(body);
 			if (parsedBody.totalEstimatedMatches > 0) {
 				callback(parsedBody.value[0].url);
