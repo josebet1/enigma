@@ -17,10 +17,15 @@ function handleAnalyzeRequest(req, res) {
 	newTuringAnalyze.googleEntitySearch((resp) => {
 		newTuringAnalyze.calcOppositeSites((opposites) => {
 			TuringAnalyze.bingSearch(resp, opposites[0], (url) => {
-				res.status(200).send({ url });
+				res.cookie('urls', { hostname, articleURL, articleHeadline, newURL: url });
+				res.redirect('/view');
 			});
 		});
 	});
+}
+
+function handleViewRequest(req, res) { 
+	console.log(req.cookies);
 }
 
 export { handleAnalyzeRequest };
