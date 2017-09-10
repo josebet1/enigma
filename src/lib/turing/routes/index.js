@@ -18,10 +18,14 @@ function handleAnalyzeRequest(req, res) {
 	newTuringAnalyze.googleEntitySearch((resp) => {
 		newTuringAnalyze.calcOppositeSites((opposites) => {
 			TuringAnalyze.bingSearch(resp, opposites[0], (url) => {
-				console.log(url);
-				const newURL = url.replace('http', 'https');
-				res.cookie('urls', { hostname, articleURL, articleHeadline, newURL });
-				res.redirect('/view');
+				if (true) {
+					const newURL = url.replace('http', 'https');
+					res.cookie('urls', { hostname, articleURL, articleHeadline, newURL });
+					res.redirect('/view');
+				} else {
+					console.log(url);
+					res.status(404).send({ error: 404 });
+				}
 			});
 		});
 	});
