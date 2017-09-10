@@ -90,6 +90,7 @@ class TuringAnalyze {
 		console.log(`https://api.cognitive.microsoft.com/bing/v5.0/news/search?${searchQuery}`);
 
 		request(requestOptions, (error, response, body) => {
+			console.log(error);
 			const parsedBody = JSON.parse(body);
 			if (parsedBody.totalEstimatedMatches > 0) {
 				callback(parsedBody.value[0].url);
