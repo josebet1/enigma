@@ -20,7 +20,7 @@ function handleAnalyzeRequest(req, res) {
 			TuringAnalyze.bingSearch(resp, opposites[0], (url) => {
 				const newURL = url.replace('http', 'https');
 				res.cookie('urls', { hostname, articleURL, articleHeadline, newURL });
-				res.redirect('/view');
+				// res.redirect('/view');
 			});
 		});
 	});
