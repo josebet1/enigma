@@ -5,6 +5,7 @@ import { spectrum, quality, validSites } from './sites';
 
 const BING_API_KEY = process.env.BING_KEY;
 const GCLOUD_API_KEY = process.env.GCLOUD_KEY;
+console.log(process.env);
 
 class TuringAnalyze {
 	constructor(hostname, headline) {
@@ -48,11 +49,8 @@ class TuringAnalyze {
 
 	googleEntitySearch(callback) {
 		const requestOptions = {
-			url: 'https://language.googleapis.com/v1/documents:analyzeEntities',
+			url: 'https://language.googleapis.com/v1/documents:analyzeEntities?key=${GCLOUD_API_KEY}',
 			method: 'POST',
-			headers: {
-				'Authorization': `Bearer ${GCLOUD_API_KEY}`, 
-			},
 			json: true,
 			body: {
 				document: {
