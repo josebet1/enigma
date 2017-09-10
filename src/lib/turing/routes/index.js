@@ -1,4 +1,5 @@
 import url from 'url';
+import request from 'request';
 
 import TuringAnalyze from '../index';
 
@@ -25,6 +26,14 @@ function handleAnalyzeRequest(req, res) {
 	});
 }
 
+function handleProxyRequest(req, res) {
+	const newURL = req.query.url;
+
+	request(newURL, (error, response, body) => {
+		res.send(body);
+	});
+}
+
 function handleViewRequest(req, res) { 
 	console.log(req.cookies);
 
@@ -32,4 +41,4 @@ function handleViewRequest(req, res) {
 	res.send(`<html><head></head><body><div style="width: 49.5% !important; height:100%;"> <iframe id="left" style="width: 100%; height: 100%;" src="https://www.google.com/search?q=%${req.cookies.urls.articleURL}&btnI=Im+Feeling+Lucky"></iframe></div> <div style="width: 49.5% !important;"><iframe id="right" style="width: 100%; height: 100%;" src="${req.cookies.urls.newURL}"></iframe></div></body></html>`);
 }
 
-export { handleAnalyzeRequest, handleViewRequest };
+export { handleAnalyzeRequest, handleViewRequest, handleProxyRequest };
