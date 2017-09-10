@@ -27,9 +27,7 @@ function handleAnalyzeRequest(req, res) {
 }
 
 function handleProxyRequest(req, res) {
-	const newURL = req.query.url;
-
-	request(newURL, (error, response, body) => {
+	request(req.query.url, (error, response, body) => {
 		res.send(body);
 	});
 }
@@ -38,7 +36,7 @@ function handleViewRequest(req, res) {
 	console.log(req.cookies);
 
 	res.set('Content-Type', 'text/html');
-	res.send(`<html><head></head><body><div style="width: 49.5% !important; height:100%;"> <iframe id="left" style="width: 100%; height: 100%;" src="https://www.google.com/search?q=%${req.cookies.urls.articleURL}&btnI=Im+Feeling+Lucky"></iframe></div> <div style="width: 49.5% !important;"><iframe id="right" style="width: 100%; height: 100%;" src="https://enigma.joseb.me/view?url=${req.cookies.urls.newURL}"></iframe></div></body></html>`);
+	res.send(`<html><head></head><body><div style="width: 49.5% !important; height:100%;"> <iframe id="left" style="width: 100%; height: 100%;" src="https://enigma.joseb.me/view?url=${req.cookies.urls.articleURL}"></iframe></div> <div style="width: 49.5% !important;"><iframe id="right" style="width: 100%; height: 100%;" src="https://enigma.joseb.me/view?url=${req.cookies.urls.newURL}"></iframe></div></body></html>`);
 }
 
 export { handleAnalyzeRequest, handleViewRequest, handleProxyRequest };
