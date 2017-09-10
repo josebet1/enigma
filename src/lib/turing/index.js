@@ -59,7 +59,7 @@ class TuringAnalyze {
 				},
 			},
 		};
-
+		console.log(this.headline);
 		request(requestOptions, (error, response, body) => {
 			if (!error) {
 				console.log(body);
