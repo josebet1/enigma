@@ -48,6 +48,7 @@ class TuringAnalyze {
 	}
 
 	googleEntitySearch(callback) {
+		const mainHeadline = this.headline.split('-')[0];
 		const requestOptions = {
 			url: `https://language.googleapis.com/v1/documents:analyzeEntities?key=${GCLOUD_API_KEY}`,
 			method: 'POST',
@@ -55,11 +56,11 @@ class TuringAnalyze {
 			body: {
 				document: {
 					type: 'PLAIN_TEXT',
-					content: this.headline,
+					content: mainHeadline,
 				},
 			},
 		};
-		console.log(this.headline);
+
 		request(requestOptions, (error, response, body) => {
 			if (!error) {
 				console.log(body);
